@@ -29,7 +29,13 @@ window = pygame.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT), pygame.HWSURFACE)
 playersprite=Character(Playerlocx,Playerlocy,30,30,'images/imgoated.png')
 bg=area(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,255)
 Invader=SpaceInvader(Invaderlocx,Invaderlocy,50,30,'images/spaceinvader.png')
-bullets=Bullet(250,250,30,30,'images/bullet.png')
+Invader2=SpaceInvader(Invaderlocx+45,Invaderlocy,50,30,'images/spaceinvader.png')
+Invader3=SpaceInvader(Invaderlocx+90,Invaderlocy,50,30,'images/spaceinvader.png')
+Invader4=SpaceInvader(Invaderlocx+135,Invaderlocy,50,30,'images/spaceinvader.png')
+Invader5=SpaceInvader(Invaderlocx+180,Invaderlocy,50,30,'images/spaceinvader.png')
+Invader6=SpaceInvader(Invaderlocx+225,Invaderlocy,50,30,'images/spaceinvader.png')
+Invader7=SpaceInvader(Invaderlocx+270,Invaderlocy,50,30,'images/spaceinvader.png')
+bullets=Bullet(1000,1000,30,30,'images/bullet.png')
 #Button_1=button.no_background(5, 0, "Arial",20,(0,0,0),(255,0,0),"exit",exit_button)
 
 
@@ -40,7 +46,7 @@ Enemy = pygame.sprite.Group()
 bullet=pygame.sprite.Group()
 Playarea.add(bg)
 Player.add(playersprite)
-Enemy.add(Invader)
+Enemy.add(Invader,Invader2,Invader3,Invader4,Invader5,Invader6)
 bullet.add(bullets)
 
 pygame.display.set_caption("Space Invaders")
@@ -51,6 +57,13 @@ def display():
     Player.draw(window)
     bullet.draw(window)
     Invader.move()
+    Invader2.move()
+    Invader3.move()
+    Invader4.move()
+    Invader5.move()
+    Invader6.move()
+    Invader7.move()
+    # Invader4.move()
     
     
 while True:
@@ -66,21 +79,42 @@ while True:
         
         key_input = pygame.key.get_pressed()
         if key_input[pygame.K_SPACE]:
-            bullets=Bullet(playersprite.rect.x,playersprite.rect.y,30,30)
+            bullets=Bullet(playersprite.rect.x,playersprite.rect.y,30,30,255)
             bullet.add(bullets)
-            bullets.move()
             bullet.draw(window)
+            bullets.move()
             
         # if user QUIT then the screen will close
-        if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+    if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
         
-        if Invader.SI_check_hit_X(Playarea):
+    
+    
+    if Invader.SI_check_hit_X(Playarea):
             Invader.movex=-Invader.movex
-            Invader.rect.y+=20
+            Invader.rect.y+=40
+            Invader2.movex=-Invader2.movex
+            Invader2.rect.y+=40
+            Invader3.movex=-Invader3.movex
+            Invader3.rect.y+=40
+            Invader4.movex=-Invader4.movex
+            Invader4.rect.y+=40
+            Invader5.movex=-Invader5.movex
+            Invader5.rect.y+=40
             
-        if playersprite.plr_check_hit(Playarea):
+    if Invader5.SI_check_hit_X(Playarea):
+            Invader.movex=-Invader.movex
+            Invader.rect.y+=40
+            Invader2.movex=-Invader2.movex
+            Invader2.rect.y+=40
+            Invader3.movex=-Invader3.movex
+            Invader3.rect.y+=40
+            Invader4.movex=-Invader4.movex
+            Invader4.rect.y+=40
+            Invader5.movex=-Invader5.movex
+            Invader5.rect.y+=40
+    if playersprite.plr_check_hit(Playarea):
             playersprite.plr_collide()
         
     pygame.display.update() #update the display
